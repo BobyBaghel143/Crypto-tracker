@@ -1,4 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
+
+import { changeCurrency } from "../Redux/CurrencySlice";
+
 function Navbar() {
+
+  const { appCurrency } = useSelector((state) => state.currency);
+  const dispatch = useDispatch();
+
   return ( 
     <div className="navbar bg-base-100 w-[80%] mx-auto ">
       <div className="flex-1">
@@ -8,10 +16,10 @@ function Navbar() {
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>
-              <summary> Crypto </summary>
-              <ul className="p-2 bg-base-100">
-                <li> <a> USD </a> </li>
-                <li> <a> INR </a> </li>
+              <summary className="text-white" > {appCurrency} </summary>
+              <ul className="p-2 bg-base-100 z-10 ">
+                <li onClick={()=> dispatch(changeCurrency("INR")) }> <a> INR </a> </li>
+                <li onClick={()=> dispatch (changeCurrency("USD"))}> <a> USD </a> </li>
               </ul>
             </details>
           </li>
