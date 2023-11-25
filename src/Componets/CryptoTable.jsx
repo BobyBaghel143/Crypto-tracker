@@ -17,6 +17,8 @@ function CryptoTable() {
       market_cap: 61785170251310,
     }
   ]);
+  
+  const [page, setPage] = useState(1);
 
   async function loadCryptos(appCurrency, page) {
     const result = await fetchCryptoList(appCurrency, page, true);
@@ -26,9 +28,10 @@ function CryptoTable() {
     }
   }
 
+
   useEffect(() => {
-    loadCryptos(appCurrency);
-  }, [appCurrency]);
+    loadCryptos(appCurrency, page);
+  }, [appCurrency, page]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-5 w-[80vw] mx-auto my-5 ">
@@ -46,7 +49,7 @@ function CryptoTable() {
               <div key={coin.id} className="w-full bg-transparent flex items-center justify-between text-white font-semibold px-2 py-4" >
                 <div className="flex items-center justify-start gap-3 basis-[35%]" >
                   <div className="w-[5rem] h-[5rem] " >
-                    <img src={coin.image} className="w-full h-full " />
+                    <img src={coin.image} className="w-full h-full" />
                   </div>
                   <div className="flex flex-col " >
                     <div className="text-3xl" > {coin.name} </div>
@@ -56,11 +59,14 @@ function CryptoTable() {
                 <div className="basis-[25%]"> {coin.price} </div>
                 <div className="basis-[20%]"> {coin.change24h} </div>
                 <div className="basis-[20%]"> {coin.market_cap} </div>
-
               </div>
-            )
+            );
           })
         }
+      </div>
+      <div className="flex items-center justify-center gap-4" >
+        <button onClick={()=> setPage((page)=> page-1)} className="btn btn-primary btn-wide text-white text-2xl" disabled={page == 1} >Prev</button>
+        <button onClick={()=> setPage((page)=> page+1)} className="btn btn-secodary btn-wide text-white text-2xl" >Next</button>
       </div>
     </div>
   );

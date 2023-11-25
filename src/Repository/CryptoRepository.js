@@ -3,9 +3,7 @@ import axiosInstance from "../Config/axiosInstance";
 export const fetchCryptoList = async (appCurrency, page, flag = false) => {
   try {
     if (!flag) return;
-    const response = await axiosInstance.get(
-      `coins/markets?vs_currency=${appCurrency}&order=market_cap_desc&per_page=10&page=${page}&sparkline=false&locale=en`
-    );
+    const response = await axiosInstance.get( `coins/markets?vs_currency=${appCurrency}&order=market_cap_desc&per_page=10&page=${page}&sparkline=false&locale=en` );
     console.log(response.data);
     return {
       success: true,
@@ -15,8 +13,8 @@ export const fetchCryptoList = async (appCurrency, page, flag = false) => {
           symbol: coin.symbol,
           name: coin.name,
           image: coin.image,
-          change24h: coin.high_24h - coin.log_24h,
           price: coin.current_price,
+          change24h: coin.high_24h - coin.log_24h,
           market_cap: coin.market_cap,
         };
       }),
